@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>resc/BeautifyMouse/mouse1.png</file>
+    </qresource>
+</RCC>
