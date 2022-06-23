@@ -55,6 +55,11 @@ bool FileFunctions::createDir(QString dirPath)
     return dir.mkdir(dirPath);
 }
 
+bool FileFunctions::createFile(QString filePath)
+{
+    return false;
+}
+
 bool FileFunctions::removeFile(QString filePath)
 {
     if(!isFileExist(filePath)){
@@ -62,6 +67,28 @@ bool FileFunctions::removeFile(QString filePath)
     }
     return QFile::remove(filePath);
 }
+
+bool FileFunctions::readJson(QString path, QVariantMap &data)
+{
+    QFile file(path);
+    if(!file.open(QIODevice::ReadOnly)){
+        return false;
+    }
+
+    return true;
+}
+
+bool FileFunctions::writeJson(QString path, QVariantMap &data, bool isCreate)
+{
+    if(!isFileExist(path)){
+        if(isCreate){
+            createFile(path);
+        }else{
+            return false;
+        }
+    }
+}
+
 
 void FileFunctions::setData(QString name, QVariant data)
 {
@@ -71,6 +98,16 @@ void FileFunctions::setData(QString name, QVariant data)
 QVariant FileFunctions::getData(QString name)
 {
     return m_setings->value(name);
+}
+
+QVariantMap FileFunctions::JsonObjectToMap(QJsonObject from)
+{
+    return from.toVariantMap();
+}
+
+QJsonObject FileFunctions::MapToJsonObject(QVariantMap from)
+{
+    return QJsonObject(QJsonDocument::fromJson(QJsonDocument::fromVariant(QVariant(from)).toJson()).object());
 }
 
 void FileFunctions::init()

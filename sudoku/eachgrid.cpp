@@ -4,6 +4,7 @@ eachGrid::eachGrid(QWidget *parent) :
     QWidget(parent)
 {
     setupUi(this);
+    init();
 }
 
 eachGrid::~eachGrid()
@@ -28,4 +29,11 @@ void eachGrid::setValue(int value)
     }
     value %= 10;
     m_pShowLab->setText(QString::number(value));
+}
+
+void eachGrid::init()
+{
+    setStyleSheet("QWidget{\n"
+                  "border:0.5px solid rgb(0,0,0);\n"
+                  "}\n");
 }

@@ -14,6 +14,8 @@ public:
     void setIsCanChangeValue(bool isOk);
     bool getIsCanChangeValue();
     void setValue(int value);
+protected:
+    void init();
 private:
     int value = 0;
     bool m_bIsCanChangeValue = true;

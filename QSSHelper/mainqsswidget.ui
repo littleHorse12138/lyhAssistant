@@ -26,38 +26,10 @@
       </size>
      </property>
      <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="0">
-       <widget class="QLabel" name="label">
-        <property name="text">
-         <string>类型</string>
-        </property>
-       </widget>
-      </item>
       <item row="2" column="0">
        <widget class="QLabel" name="label_3">
         <property name="text">
          <string>边框</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QPushButton" name="m_pBtnState">
-        <property name="text">
-         <string>设置</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1">
-       <widget class="QPushButton" name="m_pBtnBackground">
-        <property name="text">
-         <string>设置</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="label_2">
-        <property name="text">
-         <string>状态</string>
         </property>
        </widget>
       </item>
@@ -75,7 +47,42 @@
         </property>
        </widget>
       </item>
-      <item row="4" column="1">
+      <item row="2" column="1">
+       <widget class="QPushButton" name="m_pBtnBorder">
+        <property name="text">
+         <string>设置</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QPushButton" name="m_pBtnState">
+        <property name="text">
+         <string>设置</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>类型</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>状态</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QPushButton" name="m_pBtnBackground">
+        <property name="text">
+         <string>设置</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="1">
        <spacer name="verticalSpacer">
         <property name="orientation">
          <enum>Qt::Vertical</enum>
@@ -88,10 +95,17 @@
         </property>
        </spacer>
       </item>
-      <item row="2" column="1">
-       <widget class="QPushButton" name="m_pBtnBorder">
+      <item row="4" column="1">
+       <widget class="QPushButton" name="m_pBtnFont">
         <property name="text">
          <string>设置</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0">
+       <widget class="QLabel" name="label_25">
+        <property name="text">
+         <string>字体</string>
         </property>
        </widget>
       </item>
@@ -110,7 +124,7 @@
       <item>
        <widget class="QStackedWidget" name="m_pMainStackedWgt">
         <property name="currentIndex">
-         <number>2</number>
+         <number>5</number>
         </property>
         <widget class="QWidget" name="type">
          <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -263,10 +277,10 @@
               <widget class="QWidget" name="m_pWgtBorderColor" native="true">
                <layout class="QGridLayout" name="gridLayout_2">
                 <item row="1" column="1">
-                 <widget class="QLineEdit" name="lineEdit_2"/>
+                 <widget class="QLineEdit" name="m_pLEBorderR"/>
                 </item>
                 <item row="2" column="1">
-                 <widget class="QLineEdit" name="lineEdit_3"/>
+                 <widget class="QLineEdit" name="m_pLEBorderG"/>
                 </item>
                 <item row="1" column="0">
                  <widget class="QLabel" name="label_12">
@@ -283,7 +297,7 @@
                  </widget>
                 </item>
                 <item row="3" column="1">
-                 <widget class="QLineEdit" name="lineEdit_4"/>
+                 <widget class="QLineEdit" name="m_pLEBorderB"/>
                 </item>
                 <item row="0" column="0" colspan="2">
                  <widget class="QLabel" name="label_11">
@@ -410,7 +424,7 @@
           </item>
          </layout>
         </widget>
-        <widget class="QWidget" name="page">
+        <widget class="QWidget" name="preview">
          <layout class="QVBoxLayout" name="verticalLayout_10">
           <item>
            <widget class="QLabel" name="label_21">
@@ -483,6 +497,70 @@
           </item>
          </layout>
         </widget>
+        <widget class="QWidget" name="font">
+         <layout class="QVBoxLayout" name="verticalLayout_11">
+          <item>
+           <widget class="QLabel" name="label_26">
+            <property name="text">
+             <string>字体设置</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="m_pCBIsFont">
+            <property name="text">
+             <string>是否设置字体</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QWidget" name="m_pWgtFont" native="true">
+            <layout class="QGridLayout" name="gridLayout_5">
+             <item row="3" column="1">
+              <widget class="QLineEdit" name="m_pLEFontB"/>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="label_28">
+               <property name="text">
+                <string>字体g</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QLineEdit" name="m_pLEFontG"/>
+             </item>
+             <item row="1" column="1">
+              <widget class="QLineEdit" name="m_pLEFontR"/>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="label_27">
+               <property name="text">
+                <string>字体r</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="label_29">
+               <property name="text">
+                <string>字体b</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_30">
+               <property name="text">
+                <string>字号</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QSpinBox" name="m_pSBFontSize"/>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
        </widget>
       </item>
       <item>
@@ -495,16 +573,9 @@
         </property>
         <layout class="QGridLayout" name="gridLayout_4">
          <item row="1" column="1">
-          <widget class="QPushButton" name="pushButton_5">
+          <widget class="QPushButton" name="m_pBtnImport">
            <property name="text">
             <string>导入</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QPushButton" name="m_pBtnUpdate">
-           <property name="text">
-            <string>手动更新</string>
            </property>
           </widget>
          </item>
@@ -512,13 +583,6 @@
           <widget class="QPushButton" name="pushButton_4">
            <property name="text">
             <string>导出</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="3">
-          <widget class="QPushButton" name="pushButton_6">
-           <property name="text">
-            <string>回归初始化</string>
            </property>
           </widget>
          </item>
@@ -547,6 +611,20 @@
           <widget class="QPushButton" name="pushButton_2">
            <property name="text">
             <string>全局设置</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="3">
+          <widget class="QPushButton" name="m_pBtnUpdate">
+           <property name="text">
+            <string>手动更新</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QPushButton" name="pushButton_3">
+           <property name="text">
+            <string>前后缀设置</string>
            </property>
           </widget>
          </item>

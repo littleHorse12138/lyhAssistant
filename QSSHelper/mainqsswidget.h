@@ -7,6 +7,7 @@
 #include <QMimeData>
 #include <QDebug>
 #include <QUrl>
+#include "PublicFunctions/filefunctions.h"
 #include "ui_mainqsswidget.h"
 class MainQssWidget : public QWidget, public Ui_MainQssWidget
 {
@@ -15,6 +16,9 @@ class MainQssWidget : public QWidget, public Ui_MainQssWidget
 public:
     explicit MainQssWidget(QWidget *parent = nullptr);
     ~MainQssWidget();
+
+    QVariantMap generateSave();
+    void applySave(QVariantMap save);
 protected:
     void init();
     void connectSignalAndSlots();
@@ -30,13 +34,14 @@ protected slots:
     void onBtnStatePressed();
     void onBtnBorderPressed();
     void onBtnBackgroundPresseed();
+    void onBtnFontPressed();
     void onBtnTypePressed();
     void onBtnPreViewPressed();
     void onBtnClosePressed();
+    void onBtnImportPressed();
     void onCBTypeIndexChanged(QString text);
     void onCBIsBGColorToggled();
     void onCBIsBGPicToggled();
-    void updateAll();
 
     QString getStart();
     QString getEnd();
@@ -44,6 +49,10 @@ protected slots:
     QString getType();
     QString getState();
     QString getBackground();
+    QString getBorder();
+    QString getFont();
+public slots:
+    void updateAll();
 private:
     bool m_bIsType = false;
     int m_type;
