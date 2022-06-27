@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QPainter>
 #include <QGridLayout>
+#include <PublicFunctions/otherfunctions.h>
 #include "ui_sudokumainwgt.h"
 #include "eachgrid.h"
 class SudokuMainWgt : public QWidget, public Ui_SudokuMainWgt
@@ -13,16 +14,28 @@ class SudokuMainWgt : public QWidget, public Ui_SudokuMainWgt
 public:
     explicit SudokuMainWgt(QWidget *parent = nullptr);
     ~SudokuMainWgt();
-    void init();
 protected:
-    void paintEvent(QPaintEvent *event);
+    void init();
+    void connectSignalAndSlots();
     void resizeEvent(QResizeEvent *event);
+
+    void updateState();
+protected slots:
+    void slotChosenNumber(int val);
+    void slotClickItem(int val);
+    void slotClearClick(int val);
+
+    void slotCal();
 private:
     QGridLayout *m_pGridWgt;
     QList <eachGrid*> m_grids;
+    QList <eachGrid*> m_gridChoose;
+    eachGrid* m_chosenGrid = nullptr;
+    eachGrid* m_chosenGridNumber = nullptr;
+    QColor m_bigBlock   = QColor(255, 0, 0);
+    QColor m_smallBlock = QColor(0, 0, 0);
 
-    float m_singleWidth = 1;
-    float m_singleHeight = 1;
+    int m_nowChosenNumber = 0;
 };
 
 #endif // SUDOKUMAINWGT_H
