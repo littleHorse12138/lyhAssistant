@@ -9,6 +9,7 @@
 #include <QSettings>
 #include <QJsonObject>
 #include <QJsonDocument>
+#include <QByteArray>
 class FileFunctions
 {
 public:
@@ -20,8 +21,6 @@ public:
     static bool createDir(QString dirPath);                                                    //创建文件夹
     static bool createFile(QString filePath);                                                  //创建文件
     static bool removeFile(QString filePath);                                                  //删除文件
-    static bool readJson(QString path, QVariantMap &data);                                     //loadjson
-    static bool writeJson(QString path, QVariantMap &data, bool isCreate = false);             //writejson
     static QString getExePath();                                                               //获取当前运行目录
     static QString getFileName();                                                              //打开一个选择文件的窗口
 
@@ -29,6 +28,8 @@ public:
     void setData(QString name, QVariant data);                                                 //存读取文档
     QVariant getData(QString name);
 
+    static bool writeJson(QString jsonPath, QVariantMap data, bool isCreate = false);
+    static QVariantMap readJson(QString path);
     static QVariantMap JsonObjectToMap(QJsonObject from);
     static QJsonObject MapToJsonObject(QVariantMap from);
 protected:

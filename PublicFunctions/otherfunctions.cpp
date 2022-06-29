@@ -14,3 +14,8 @@ int OtherFunctions::getNowTimeMesc()
 {
     return QDateTime::currentDateTime().toMSecsSinceEpoch();
 }
+
+QDate OtherFunctions::getCurrentDay()
+{
+    return QDateTime::currentDateTime().date();
+}

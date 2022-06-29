@@ -28,6 +28,7 @@ void MainWindow::connectSignalAndSlots()
     connect(m_pBtnBeautifyMouse, &QPushButton::clicked, this, &MainWindow::onBtnBeautifualMousePressed);
     connect(m_pBtnOpenSudoku, &QPushButton::clicked, this, &MainWindow::onBtnPlaySudoku);
     connect(m_pBtnQSSHelper, &QPushButton::clicked, this, &MainWindow::onBtnQSSHelperOpen);
+    connect(m_pBtnAddSave, &QPushButton::clicked, this, &MainWindow::onBtnSavePressed);
 }
 
 void MainWindow::checkComputerConfiguration()
@@ -60,5 +61,13 @@ void MainWindow::onBtnQSSHelperOpen()
         m_pQSSWidget = new MainQssWidget;
     }
     m_pQSSWidget->show();
+}
+
+void MainWindow::onBtnSavePressed()
+{
+    if(!m_pMainSaveWgt){
+        m_pMainSaveWgt = new MainSaveWgt;
+    }
+    m_pMainSaveWgt->show();
 }
 

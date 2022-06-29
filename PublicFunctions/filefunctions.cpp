@@ -57,7 +57,11 @@ bool FileFunctions::createDir(QString dirPath)
 
 bool FileFunctions::createFile(QString filePath)
 {
-    return false;
+    if(FileFunctions::isFileExist(filePath)){
+        return false;
+    }
+    QFile file(filePath);
+    return file.open(QIODevice::ReadWrite|QIODevice::Text);
 }
 
 bool FileFunctions::removeFile(QString filePath)
@@ -66,27 +70,6 @@ bool FileFunctions::removeFile(QString filePath)
         return false;
     }
     return QFile::remove(filePath);
-}
-
-bool FileFunctions::readJson(QString path, QVariantMap &data)
-{
-    QFile file(path);
-    if(!file.open(QIODevice::ReadOnly)){
-        return false;
-    }
-
-    return true;
-}
-
-bool FileFunctions::writeJson(QString path, QVariantMap &data, bool isCreate)
-{
-    if(!isFileExist(path)){
-        if(isCreate){
-            createFile(path);
-        }else{
-            return false;
-        }
-    }
 }
 
 
@@ -98,6 +81,44 @@ void FileFunctions::setData(QString name, QVariant data)
 QVariant FileFunctions::getData(QString name)
 {
     return m_setings->value(name);
+}
+
+bool FileFunctions::writeJson(QString jsonPath, QVariantMap data, bool isCreate)
+{
+    if(!FileFunctions::isFileExist(jsonPath)){
+        if(!isCreate){
+            return false;
+        }else{
+            if(!FileFunctions::createFile(jsonPath)){
+                return false;
+            }
+        }
+    }
+    QJsonObject obj = FileFunctions::MapToJsonObject(data);
+    QJsonDocument doc(obj);
+    QByteArray data1=doc.toJson();
+    QFile file(jsonPath);
+    bool ok=file.open(QIODevice::WriteOnly);
+    if(ok)
+    {
+        file.write(data1);
+        file.close();
+        return true;
+    }
+    return false;
+}
+
+QVariantMap FileFunctions::readJson(QString path)
+{
+    QVariantMap an;
+    QFile file(path);
+    file.open(QIODevice::ReadOnly);
+    QByteArray data=file.readAll();
+    file.close();
+    QJsonDocument doc=QJsonDocument::fromJson(data);
+    QJsonObject obj=doc.object();
+    an = FileFunctions::JsonObjectToMap(obj);
+    return an;
 }
 
 QVariantMap FileFunctions::JsonObjectToMap(QJsonObject from)

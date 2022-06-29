@@ -6,6 +6,7 @@
 #include "BeautifyMouse/beautifymousewgt.h"
 #include "sudoku/sudokumainwgt.h"
 #include "QSSHelper/mainqsswidget.h"
+#include "SaveLog/mainsavewgt.h"
 class MainWindow : public QMainWindow, public Ui_MainWindow
 {
     Q_OBJECT
@@ -21,10 +22,12 @@ protected slots:
     void onBtnBeautifualMousePressed();
     void onBtnPlaySudoku();
     void onBtnQSSHelperOpen();
+    void onBtnSavePressed();
 private:
     ReadLocalConfigurationWgt* m_pReadConfigWgt = nullptr;
     BeautifyMouseWgt *m_pBeautifyMouseWgt       = nullptr;
     SudokuMainWgt *m_pSudokuWgt                 = nullptr;
     MainQssWidget *m_pQSSWidget                 = nullptr;
+    MainSaveWgt *m_pMainSaveWgt                 = nullptr;
 };
 #endif // MAINWINDOW_H

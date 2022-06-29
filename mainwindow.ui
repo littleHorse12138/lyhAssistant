@@ -46,6 +46,13 @@
          </property>
         </widget>
        </item>
+       <item>
+        <widget class="QPushButton" name="m_pBtnAddSave">
+         <property name="text">
+          <string>需求添加</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
     </item>

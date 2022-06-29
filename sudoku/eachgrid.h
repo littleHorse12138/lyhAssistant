@@ -24,6 +24,8 @@ public:
     void setRightColor(QColor color);
     void setLowColor(QColor color);
     void setLeftColor(QColor color);
+
+    int getValue();
 signals:
     void sgClicked(int val);
 protected:

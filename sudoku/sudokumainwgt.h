@@ -3,6 +3,8 @@
 
 #include <QWidget>
 #include <QPainter>
+#include <QDebug>
+#include <QList>
 #include <QGridLayout>
 #include <PublicFunctions/otherfunctions.h>
 #include "ui_sudokumainwgt.h"
@@ -26,6 +28,12 @@ protected slots:
     void slotClearClick(int val);
 
     void slotCal();
+
+    QList<QList<int>> getCal(QList<QList<int>> needToCal); //获取答案
+    QList<QList<QList<int>>> sepList(QList<QList<int>> needToSep); //对于不满足条件的list，将其划分
+    bool checkIsOk(QList<QList<int>> needToCheck); //查看目前的答案是否满足条件
+    int getGridBlock(int row, int column); //获取小块处于哪个大块
+    QList<QList<int>> removeUnqualified(QList<QList<int>> map);
 private:
     QGridLayout *m_pGridWgt;
     QList <eachGrid*> m_grids;
@@ -35,7 +43,7 @@ private:
     QColor m_bigBlock   = QColor(255, 0, 0);
     QColor m_smallBlock = QColor(0, 0, 0);
 
-    int m_nowChosenNumber = 0;
+    int m_nowChosenNumber = 1;
 };
 
 #endif // SUDOKUMAINWGT_H

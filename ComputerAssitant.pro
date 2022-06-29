@@ -21,6 +21,7 @@ include($$PWD/CustomControl/CustomControl.pri)
 include($$PWD/QSSHelper/QSSHelper.pri)
 include($$PWD/sudoku/sudoku.pri)
 include($$PWD/osg/osg.pri)
+include($$PWD/SaveLog/SaveLog.pri)
 SOURCES += \
     main.cpp \
     mainwindow.cpp

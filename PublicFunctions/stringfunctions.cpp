@@ -26,3 +26,9 @@ QString StringFunctions::removeLastSpaces(QString from)
     }
     return from;
 }
+
+QString StringFunctions::createUuid()
+{
+    QUuid uuid = QUuid::createUuid();
+    return uuid.toString();
+}

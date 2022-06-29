@@ -28,7 +28,7 @@ void SudokuMainWgt::init()
     for(int i = 0; i < 9; i++){
         eachGrid *singleWgt = new eachGrid();
         m_gridChoose.append(singleWgt);
-        singleWgt->setValue(i);
+        singleWgt->setValue(i+1);
         singleWgt->setIsCanChangeValue(false);
         m_pHLChoose->addWidget(singleWgt);
     }
@@ -127,8 +127,159 @@ void SudokuMainWgt::slotClearClick(int val)
 void SudokuMainWgt::slotCal()
 {
     int startTime = OtherFunctions::getNowTimeMesc();
-
     /* by my own*/
+    QList <QList<int>> stillOk;
+    for(int i = 0; i < 81; i++){
+        QList <int> ok;
+        if(m_grids[i]->getValue() == -1){
+            for(int j = 1; j <= 9; j++){
+                ok.append(j);
+            }
+            stillOk.append(ok);
+        }else{
+           ok.append(m_grids[i]->getValue());
+           stillOk.append(ok);
+        }
+    }
+    QList <QList<int>> ans = getCal(stillOk);
+    if(ans.count() >= 1){
+        for(int i = 0; i < 81; i++){
+           m_grids[i]->setValue(ans[0][i]);
+        }
+    }
+    OtherFunctions::giveInfoMessage("success " + QString::number(ans.count()) + " slove!");
+
+
     int endTime = OtherFunctions::getNowTimeMesc();
     qDebug() << "calOntTime" << endTime - startTime << "ms";
+}
+
+QList<QList<int>> SudokuMainWgt::getCal(QList<QList<int>> needToCal)
+{
+     needToCal = removeUnqualified(needToCal);
+
+     QList <int> an;
+     for(auto n:needToCal){
+         if(n.count() == 1){
+             an.append(n[0]);
+         }else{
+             an.append(-1);
+         }
+     }
+
+     QList<QList<int>> ans;
+     ans.append(an);
+     return ans;
+     if(checkIsOk(needToCal)){
+         QList <int> an;
+         for(auto n:needToCal){
+             an.append(n[0]);
+         }
+         ans.append(an);
+     }else{
+        QList<QList<QList<int>>> seps = sepList(needToCal);
+        for(auto sep: seps){
+            ans += getCal(sep);
+        }
+     }
+     return ans;
+}
+
+QList<QList<QList<int>>> SudokuMainWgt::sepList(QList<QList<int>> needToSep)
+{
+    QList<QList<QList<int>>> ans;
+    for(int i = 0; i < 81; i++){
+        if(needToSep[i].count() != 1){
+            for(int j = 0; j < needToSep[i].count(); j++){
+                QList<QList<int>> temp = needToSep;
+                QList <int> newOne;
+                newOne.append(temp[i][j]);
+                temp[i] = newOne;
+                ans.append(temp);
+            }
+            qDebug() << "__FUNCTION__" << ans.count();
+            return ans;
+        }
+    }
+}
+
+bool SudokuMainWgt::checkIsOk(QList<QList<int> > needToCheck)
+{
+    for(auto list: needToCheck){
+        if(list.count() != 1){
+            return false;
+        }
+    }
+    return true;
+}
+
+int SudokuMainWgt::getGridBlock(int row, int column)
+{
+    if(row < 3){
+        if(column < 3){
+            return 1;
+        }else if(row < 6){
+            return 2;
+        }else{
+            return 3;
+        }
+    }else if(row < 6){
+        if(column < 3){
+            return 4;
+        }else if(row < 6){
+            return 5;
+        }else{
+            return 6;
+        }
+    }else{
+        if(column < 3){
+            return 7;
+        }else if(row < 6){
+            return 8;
+        }else{
+            return 9;
+        }
+    }
+}
+
+QList<QList<int> > SudokuMainWgt::removeUnqualified(QList<QList<int> > map)
+{
+    bool stillCanCal = true;
+    while(stillCanCal){
+        stillCanCal = false;
+        for(int i = 0; i < 9; i++){
+            for(int j = 0; j < 9; j++){
+                int cnttBefore = i * 9 + j;
+                if(map[cnttBefore].count() != 1){
+                    continue;
+                }
+                int nowBlock = getGridBlock(i, j);
+                int nowValue = map[cnttBefore][0];
+                for(int k = 0; k < 9; k++){
+                    for(int z = 0; z < 9; z++){
+                        if(i == k && j == k){
+                            continue;
+                        }
+                        int cnttAfter = k * 9 + z;
+                        if(map[cnttAfter].count() == 1){
+                            continue;
+                        }
+                        if(k == i || z == j || nowBlock == getGridBlock(k, z)){
+                            if(map[cnttAfter].contains(nowValue)){
+                                QList <int> newOk;
+                                for(auto t: map[cnttAfter]){
+                                    if(t != nowValue){
+                                        newOk.append(t);
+                                    }
+                                }
+                                map[cnttAfter] = newOk;
+                                stillCanCal = true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return map;
 }

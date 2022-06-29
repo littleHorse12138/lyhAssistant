@@ -70,6 +70,11 @@ void eachGrid::setLeftColor(QColor color)
     update();
 }
 
+int eachGrid::getValue()
+{
+    return m_value;
+}
+
 void eachGrid::init()
 {
 
