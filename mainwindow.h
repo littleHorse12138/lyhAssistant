@@ -7,6 +7,7 @@
 #include "sudoku/sudokumainwgt.h"
 #include "QSSHelper/mainqsswidget.h"
 #include "SaveLog/mainsavewgt.h"
+#include "UsefulFunction/mainfuncwgt.h"
 class MainWindow : public QMainWindow, public Ui_MainWindow
 {
     Q_OBJECT
@@ -23,11 +24,13 @@ protected slots:
     void onBtnPlaySudoku();
     void onBtnQSSHelperOpen();
     void onBtnSavePressed();
+    void onBtnMainFuncPressed();
 private:
     ReadLocalConfigurationWgt* m_pReadConfigWgt = nullptr;
     BeautifyMouseWgt *m_pBeautifyMouseWgt       = nullptr;
     SudokuMainWgt *m_pSudokuWgt                 = nullptr;
     MainQssWidget *m_pQSSWidget                 = nullptr;
     MainSaveWgt *m_pMainSaveWgt                 = nullptr;
+    MainFuncWgt *m_pMainFuncWgt                 = nullptr;
 };
 #endif // MAINWINDOW_H

@@ -1,5 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>resc/BeautifyMouse/mouse1.png</file>
+        <file>resc/title/icon.jpg</file>
+        <file>logo.ico</file>
     </qresource>
 </RCC>

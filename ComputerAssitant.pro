@@ -23,6 +23,7 @@ include($$PWD/sudoku/sudoku.pri)
 include($$PWD/osg/osg.pri)
 include($$PWD/SaveLog/SaveLog.pri)
 include($$PWD/LittleGame/LittleGame.pri)
+include($$PWD/UsefulFunction/UsefulFunction.pri)
 SOURCES += \
     main.cpp \
     mainwindow.cpp
@@ -41,3 +42,5 @@ INCLUDEPATH += $$PWD/../../ComputerAssistant/include
 
 RESOURCES += \
     resc.qrc
+
+RC_FILE=icon.rc

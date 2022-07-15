@@ -20,6 +20,7 @@ MainWindow::~MainWindow()
 void MainWindow::init()
 {
     connectSignalAndSlots();
+    setWindowIcon(QIcon(":/logo.ico"));
 }
 
 void MainWindow::connectSignalAndSlots()
@@ -70,5 +71,13 @@ void MainWindow::onBtnSavePressed()
     }
     m_pMainSaveWgt->readDefaultData();
     m_pMainSaveWgt->show();
+}
+
+void MainWindow::onBtnMainFuncPressed()
+{
+    if(!m_pMainFuncWgt){
+        m_pMainFuncWgt = new MainFuncWgt;
+    }
+    m_pMainFuncWgt>show();
 }
 

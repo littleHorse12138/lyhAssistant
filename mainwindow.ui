@@ -53,6 +53,13 @@
          </property>
         </widget>
        </item>
+       <item>
+        <widget class="QPushButton" name="m_pBtnFuncs">
+         <property name="text">
+          <string>一些小功能</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
     </item>
