@@ -68,6 +68,7 @@ void MainWindow::onBtnSavePressed()
     if(!m_pMainSaveWgt){
         m_pMainSaveWgt = new MainSaveWgt;
     }
+    m_pMainSaveWgt->readDefaultData();
     m_pMainSaveWgt->show();
 }
 

@@ -14,9 +14,9 @@ public:
 protected:
     void init();
     void connectSignalAndSlots();
-protected slots:
-    void onBtnEnsurePressed();
-    void onBtnOpenCacheFilePressed();
+//protected slots:
+//    void onBtnEnsurePressed();
+//    void onBtnOpenCacheFilePressed();
 private:
 
 };

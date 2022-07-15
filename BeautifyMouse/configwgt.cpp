@@ -22,12 +22,12 @@ void ConfigWgt::connectSignalAndSlots()
 
 }
 
-void ConfigWgt::onBtnEnsurePressed()
-{
-    close();
-}
+//void ConfigWgt::onBtnEnsurePressed()
+//{
+//    close();
+//}
 
-void ConfigWgt::onBtnOpenCacheFilePressed()
-{
+//void ConfigWgt::onBtnOpenCacheFilePressed()
+//{
 
-}
+//}

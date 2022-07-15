@@ -84,6 +84,16 @@
         </property>
        </spacer>
       </item>
+      <item>
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>存档名：</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="m_pLESaveNAME"/>
+      </item>
      </layout>
     </widget>
    </item>
@@ -91,7 +101,14 @@
     <widget class="QWidget" name="widget" native="true">
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <widget class="QTableWidget" name="m_pTabWgt"/>
+       <widget class="QTableWidget" name="m_pTabWgt">
+        <property name="minimumSize">
+         <size>
+          <width>600</width>
+          <height>0</height>
+         </size>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>

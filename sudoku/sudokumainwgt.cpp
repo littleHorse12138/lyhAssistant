@@ -83,6 +83,18 @@ void SudokuMainWgt::resizeEvent(QResizeEvent *event)
     repaint();
 }
 
+void SudokuMainWgt::mousePressEvent(QMouseEvent *ev)
+{
+
+}
+
+void SudokuMainWgt::moveEvent(QMoveEvent *ev)
+{
+//    if(ev->pos().x() <= 3){
+//        resize(5, height());
+//    }
+}
+
 void SudokuMainWgt::updateState()
 {
     for(auto grid: m_grids){

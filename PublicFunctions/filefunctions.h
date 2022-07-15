@@ -6,6 +6,7 @@
 #include <QFile>
 #include <QCoreApplication>
 #include <QFileDialog>
+#include <QJsonArray>
 #include <QSettings>
 #include <QJsonObject>
 #include <QJsonDocument>
@@ -23,6 +24,7 @@ public:
     static bool removeFile(QString filePath);                                                  //删除文件
     static QString getExePath();                                                               //获取当前运行目录
     static QString getFileName();                                                              //打开一个选择文件的窗口
+    static QString getDirName();                                                               //打开一个选择文件夹的窗口
 
     static FileFunctions* getInstance();
     void setData(QString name, QVariant data);                                                 //存读取文档
@@ -30,8 +32,18 @@ public:
 
     static bool writeJson(QString jsonPath, QVariantMap data, bool isCreate = false);
     static QVariantMap readJson(QString path);
-    static QVariantMap JsonObjectToMap(QJsonObject from);
+
+    static QVariantMap jsonArrayToMap(QJsonArray array);
+    static QJsonArray mapToJsonArray(QVariantMap map);
+
+    static QVariantMap jsonObjectToMap(QJsonObject from);
     static QJsonObject MapToJsonObject(QVariantMap from);
+
+    static QByteArray jsonArrayToByteArray(QJsonArray from);
+    static QJsonArray byteArrayToJsonArray(QByteArray from);
+
+    static QVariantMap listToMap(QVariantList list);
+    static QVariantList mapToList(QVariantMap map);
 protected:
     void init();
 private:

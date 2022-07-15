@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QVariantMap>
 #include <QDebug>
+#include "PublicFunctions/otherfunctions.h"
 #include "ui_itemwgt.h"
 
 class ItemWgt : public QWidget, public Ui_ItemWgt
@@ -24,8 +25,12 @@ protected:
 protected slots:
     void slotOnBtnClosePressed();
     void slotOnBtnEnsurePressed();
+    void slotOnBtnEndPressed();
+
+    void slotOnOpenWebPressed();
 signals:
     void sgAddNewItem(QVariantMap data);
+    void sgDeleteItem(QVariantMap data);
 private:
     QString m_uuid;
 };

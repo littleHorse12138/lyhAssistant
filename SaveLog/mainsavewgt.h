@@ -3,6 +3,7 @@
 
 #include <QDebug>
 #include <QWidget>
+#include <QTimer>
 #include <QVariant>
 #include "PublicFunctions/filefunctions.h"
 #include "PublicFunctions/stringfunctions.h"
@@ -17,6 +18,8 @@ class MainSaveWgt : public QWidget, public Ui_MainSaveWgt
 public:
     explicit MainSaveWgt(QWidget *parent = nullptr);
     ~MainSaveWgt();
+
+    void readDefaultData();
 protected:
     void init();
     void connectSignalAndSlots();
@@ -25,19 +28,31 @@ protected:
     QVariantMap getNewData(); //为某一item增加data
     QVariantMap getData();
     void setData(QVariantMap data);
+
+    void autoSaveData();
+    bool saveData(QVariantMap data, QString path, bool isAuto = false);
+    QVariantMap readData(QString filePath);
+    void closeEvent(QCloseEvent *event);
+
+    static bool cmp(QVariantMap a, QVariantMap b);
+    void sortItems();
 protected slots:
     void slotOnBtnAddItemPressed();
     void slotOnBtnSaveAllPressed();
     void slotOnAddNewItem(QVariantMap data);
+    void slotOnDeleteItem(QVariantMap data);
     void slotOnCheckItem();
     void slotOnBtnExportPressed();
     void slotOnBtnImportPressed();
-
+    void slotOnSaveTimeout();
     void updateWgt();
 private:
     ItemWgt *m_itemWgt = nullptr;
     QList <QVariantMap> m_items;
     QList <QPushButton*> m_buttons;
+
+    QString m_defaultSavePath = "";
+    QTimer *m_pSaveTimer;
 };
 
 #endif // MAINSAVEWGT_H

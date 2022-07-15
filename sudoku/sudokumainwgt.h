@@ -20,6 +20,8 @@ protected:
     void init();
     void connectSignalAndSlots();
     void resizeEvent(QResizeEvent *event);
+    void mousePressEvent(QMouseEvent *ev);
+    void moveEvent(QMoveEvent *ev);
 
     void updateState();
 protected slots:

@@ -14,6 +14,7 @@ MainSaveWgt::~MainSaveWgt()
 
 void MainSaveWgt::init()
 {
+    OtherFunctions::sendMessageToWindows("wolele");
     m_pTabWgt->setColumnCount(4);
     m_pTabWgt->setRowCount(100);
     m_pCBFinished->setChecked(true);
@@ -21,6 +22,13 @@ void MainSaveWgt::init()
     m_itemWgt = new ItemWgt;
     connectSignalAndSlots();
     updateWgt();
+    m_defaultSavePath = FileFunctions::getExePath() + "/cache";
+    if(!FileFunctions::isDirExist(m_defaultSavePath)){
+        qDebug() << ".." << FileFunctions::createDir(m_defaultSavePath);
+    }
+    m_defaultSavePath += "/autoSave.json";
+    readDefaultData();
+    autoSaveData();
 }
 
 void MainSaveWgt::connectSignalAndSlots()
@@ -30,6 +38,7 @@ void MainSaveWgt::connectSignalAndSlots()
     connect(m_pBtnExport, &QPushButton::clicked , this, &MainSaveWgt::slotOnBtnExportPressed);
     connect(m_pBtnImport, &QPushButton::clicked , this, &MainSaveWgt::slotOnBtnImportPressed);
     connect(m_itemWgt    , &ItemWgt::sgAddNewItem, this, &MainSaveWgt::slotOnAddNewItem);
+    connect(m_itemWgt    , &ItemWgt::sgDeleteItem, this, &MainSaveWgt::slotOnDeleteItem);
 
     connect(m_pCBFinished   , &QCheckBox::clicked, this, &MainSaveWgt::updateWgt);
     connect(m_pCBUnfinished , &QCheckBox::clicked, this, &MainSaveWgt::updateWgt);
@@ -38,11 +47,13 @@ void MainSaveWgt::connectSignalAndSlots()
 void MainSaveWgt::openItemWidget(QVariantMap data)
 {
     if(m_itemWgt){
+        disconnect(m_itemWgt    , &ItemWgt::sgDeleteItem, this, &MainSaveWgt::slotOnDeleteItem);
         disconnect(m_itemWgt, &ItemWgt::sgAddNewItem, this, &MainSaveWgt::slotOnAddNewItem);
         delete m_itemWgt;
     }
     m_itemWgt = new ItemWgt;
     connect(m_itemWgt, &ItemWgt::sgAddNewItem, this, &MainSaveWgt::slotOnAddNewItem);
+    connect(m_itemWgt    , &ItemWgt::sgDeleteItem, this, &MainSaveWgt::slotOnDeleteItem);
     m_itemWgt->setData(data);
     m_itemWgt->show();
 }
@@ -60,10 +71,15 @@ QVariantMap MainSaveWgt::getNewData()
 QVariantMap MainSaveWgt::getData()
 {
     QVariantMap data;
+    QVariantList list;
+    for(auto item: m_items){
+        list.append(item);
+    }
     data.insert("check", GlobalDefine::SAVE_LOG::MAIN);
-    data.insert("data",  QVariant::fromValue<QList<QVariantMap>>(m_items));
+    data.insert("data", list);
     data.insert("isShowFinish"  , m_pCBFinished->isChecked());
     data.insert("isShowUnfinish", m_pCBUnfinished->isChecked());
+    data.insert("name",m_pLESaveNAME->text());
     return data;
 }
 
@@ -74,20 +90,73 @@ void MainSaveWgt::setData(QVariantMap data)
         openItemWidget(data);
         return;
     }else if(check == GlobalDefine::SAVE_LOG::MAIN){
-        QList<QVariantMap> items = data.value("data").value<QList<QVariantMap>>();
-        m_items = items;
+        m_items.clear();
+        QVariantList items = data.value("data").toList();
+        for(auto item: items){
+            m_items.append(item.toMap());
+        }
         bool isShowFinish = data.value("isShowFinish").toBool();
         bool isShowUnFinish = data.value("isShowUnfinish").toBool();
+        QString name = data.value("name").toString();
+        m_pLESaveNAME->setText(name);
         m_pCBFinished->setChecked(isShowFinish);
         m_pCBUnfinished->setChecked(isShowUnFinish);
+        m_pLESaveNAME->setText(name);
         updateWgt();
     }
+}
+
+void MainSaveWgt::autoSaveData()
+{
+   m_pSaveTimer = new QTimer;
+   connect(m_pSaveTimer, &QTimer::timeout, this, &MainSaveWgt::slotOnSaveTimeout);
+}
+
+bool MainSaveWgt::saveData(QVariantMap data, QString path, bool isAuto)
+{
+    if(FileFunctions::isFileExist(path) && !isAuto){
+        if(!OtherFunctions::giveQuestionMessage("目标已存在，是否继续?")){
+            return false;
+        }
+    }
+    return FileFunctions::writeJson(path, data, true);
+}
+
+QVariantMap MainSaveWgt::readData(QString filePath)
+{
+    return FileFunctions::readJson(filePath);
+}
+
+void MainSaveWgt::readDefaultData()
+{
+    setData(readData(m_defaultSavePath));
+}
+
+void MainSaveWgt::closeEvent(QCloseEvent *event)
+{
+    slotOnSaveTimeout();
+    OtherFunctions::sendMessageToWindows("closed!");
+}
+
+bool MainSaveWgt::cmp(QVariantMap a, QVariantMap b)
+{
+    if(a.value("isOnTop").toBool()){
+        return true;
+    }else if(b.value("isOnTop").toBool()){
+        return false;
+    }
+}
+
+void MainSaveWgt::sortItems()
+{
+    qSort(m_items.begin(), m_items.end(), cmp);
 }
 
 void MainSaveWgt::updateWgt()
 {
     m_pTabWgt->clear();
     m_buttons.clear();
+    sortItems();
     QTableWidgetItem *Title       = new QTableWidgetItem("标题");
     QTableWidgetItem *IsFinish    = new QTableWidgetItem("isFinish");
     QTableWidgetItem *Date        = new QTableWidgetItem("date");
@@ -142,7 +211,31 @@ void MainSaveWgt::slotOnBtnSaveAllPressed()
 
 void MainSaveWgt::slotOnAddNewItem(QVariantMap data)
 {
-    m_items.append(data);
+    int insertIndex = -1;
+    int cnt = 0;
+    for(auto item: m_items){
+        if(item.value("uuid").toString() == data.value("uuid").toString()){
+            insertIndex = cnt;
+        }
+        cnt++;
+    }
+    if(insertIndex == -1){
+        m_items.append(data);
+    }else{
+        m_items[insertIndex] = data;
+    }
+    updateWgt();
+}
+
+void MainSaveWgt::slotOnDeleteItem(QVariantMap data)
+{
+    QList <QVariantMap> newItems;
+    for(auto item: m_items){
+        if(item.value("uuid").toString() != data.value("uuid").toString()){
+            newItems.append(item);
+        }
+    }
+    m_items = newItems;
     updateWgt();
 }
 
@@ -159,15 +252,32 @@ void MainSaveWgt::slotOnCheckItem()
 
 void MainSaveWgt::slotOnBtnExportPressed()
 {
-    QString fileName = FileFunctions::getFileName();
-    FileFunctions::writeJson(fileName, getData());
+    QString dirName = FileFunctions::getDirName();
+    if(m_pLESaveNAME->text() == ""){
+        dirName += "/null.json";
+    }else{
+        dirName += "/" + m_pLESaveNAME->text() + ".json";
+    }
+    if(FileFunctions::isFileExist(dirName)){
+        if(!OtherFunctions::giveQuestionMessage("存档已存在，是否覆盖?")){
+            return;
+        }
+    }else{
+        FileFunctions::createFile(dirName);
+    }
+    qDebug() << dirName << "name!";
+    FileFunctions::writeJson(dirName, getData());
 }
 
 void MainSaveWgt::slotOnBtnImportPressed()
 {
     QString fileName = FileFunctions::getFileName();
-    if(!FileFunctions::isFileExist(fileName))
-    qDebug() << "imposs" << fileName;
     QVariantMap data = FileFunctions::readJson(fileName);
     setData(data);
+}
+
+void MainSaveWgt::slotOnSaveTimeout()
+{
+    qDebug() << "doSave";
+    saveData(getData(), m_defaultSavePath, true);
 }

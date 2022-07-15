@@ -66,13 +66,43 @@
       <item>
        <widget class="QTextEdit" name="m_pTEMainText"/>
       </item>
+      <item>
+       <widget class="QWidget" name="widget_5" native="true">
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <widget class="QLabel" name="label_4">
+           <property name="text">
+            <string>原型网址</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="m_pLENet"/>
+         </item>
+         <item>
+          <widget class="QPushButton" name="m_pBtnOpenWeb">
+           <property name="text">
+            <string>打开</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>
    <item>
     <widget class="QWidget" name="widget" native="true">
      <layout class="QGridLayout" name="gridLayout">
-      <item row="1" column="0">
+      <item row="0" column="1">
+       <widget class="QCheckBox" name="m_pCBIsOnTop">
+        <property name="text">
+         <string>是否置顶</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
        <widget class="QPushButton" name="m_pBtnEnsureAdd">
         <property name="text">
          <string>确认添加</string>
@@ -80,9 +110,9 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QPushButton" name="m_pBtnDelete">
+       <widget class="QPushButton" name="m_pBtnExportOne">
         <property name="text">
-         <string>删除此事项</string>
+         <string>导出单个存档</string>
         </property>
        </widget>
       </item>
@@ -93,10 +123,17 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="1">
-       <widget class="QPushButton" name="m_pBtnExportOne">
+      <item row="3" column="1">
+       <widget class="QPushButton" name="m_pBtnEnsure">
         <property name="text">
-         <string>导出单个存档</string>
+         <string>确定</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QPushButton" name="m_pBtnDelete">
+        <property name="text">
+         <string>删除此事项</string>
         </property>
        </widget>
       </item>
