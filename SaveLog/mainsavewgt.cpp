@@ -1,4 +1,4 @@
-#include "mainsavewgt.h"
+﻿#include "mainsavewgt.h"
 
 MainSaveWgt::MainSaveWgt(QWidget *parent) :
     QWidget(parent)
@@ -24,7 +24,9 @@ void MainSaveWgt::init()
     updateWgt();
     m_defaultSavePath = FileFunctions::getExePath() + "/cache";
     if(!FileFunctions::isDirExist(m_defaultSavePath)){
-        qDebug() << ".." << FileFunctions::createDir(m_defaultSavePath);
+        if(!FileFunctions::createDir(m_defaultSavePath)){
+            OtherFunctions::giveWarningMessage(QStringLiteral("创建存档失败，请检查 "));
+        }
     }
     m_defaultSavePath += "/autoSave.json";
     readDefaultData();
@@ -36,12 +38,13 @@ void MainSaveWgt::connectSignalAndSlots()
     connect(m_pBtnAddItem, &QPushButton::clicked , this, &MainSaveWgt::slotOnBtnAddItemPressed);
     connect(m_pBtnSaveAll, &QPushButton::clicked , this, &MainSaveWgt::slotOnBtnSaveAllPressed);
     connect(m_pBtnExport, &QPushButton::clicked , this, &MainSaveWgt::slotOnBtnExportPressed);
-    connect(m_pBtnImport, &QPushButton::clicked , this, &MainSaveWgt::slotOnBtnImportPressed);
+    connect(m_pBtnImport, &QPushButton::clicked , this, CslotOnBtnImportPressed);
     connect(m_itemWgt    , &ItemWgt::sgAddNewItem, this, &MainSaveWgt::slotOnAddNewItem);
     connect(m_itemWgt    , &ItemWgt::sgDeleteItem, this, &MainSaveWgt::slotOnDeleteItem);
 
     connect(m_pCBFinished   , &QCheckBox::clicked, this, &MainSaveWgt::updateWgt);
     connect(m_pCBUnfinished , &QCheckBox::clicked, this, &MainSaveWgt::updateWgt);
+    connect(m_pBtnConfig,     &Q)
 }
 
 void MainSaveWgt::openItemWidget(QVariantMap data)
@@ -157,7 +160,7 @@ void MainSaveWgt::updateWgt()
     m_pTabWgt->clear();
     m_buttons.clear();
     sortItems();
-    QTableWidgetItem *Title       = new QTableWidgetItem("标题");
+    QTableWidgetItem *Title       = new QTableWidgetItem(QStringLiteral("标题"));
     QTableWidgetItem *IsFinish    = new QTableWidgetItem("isFinish");
     QTableWidgetItem *Date        = new QTableWidgetItem("date");
     m_pTabWgt->setItem(0, 0, Title);
@@ -265,7 +268,6 @@ void MainSaveWgt::slotOnBtnExportPressed()
     }else{
         FileFunctions::createFile(dirName);
     }
-    qDebug() << dirName << "name!";
     FileFunctions::writeJson(dirName, getData());
 }
 
@@ -278,6 +280,10 @@ void MainSaveWgt::slotOnBtnImportPressed()
 
 void MainSaveWgt::slotOnSaveTimeout()
 {
-    qDebug() << "doSave";
     saveData(getData(), m_defaultSavePath, true);
+}
+
+void MainSaveWgt::slotOnOpenConfigWgt()
+{
+
 }

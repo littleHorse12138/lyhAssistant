@@ -2,12 +2,10 @@
 #define MAINFUNCWGT_H
 
 #include <QWidget>
+#include "ui_mainfuncwgt.h"
 
-namespace Ui {
-class MainFuncWgt;
-}
 
-class MainFuncWgt : public QWidget
+class MainFuncWgt : public QWidget, public Ui_MainFuncWgt
 {
     Q_OBJECT
 
@@ -16,7 +14,7 @@ public:
     ~MainFuncWgt();
 
 private:
-    Ui::MainFuncWgt *ui;
+
 };
 
 #endif // MAINFUNCWGT_H

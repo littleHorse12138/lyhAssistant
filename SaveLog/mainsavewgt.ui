@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>700</width>
+    <width>792</width>
     <height>583</height>
    </rect>
   </property>
@@ -72,6 +72,13 @@
        </widget>
       </item>
       <item>
+       <widget class="QRadioButton" name="radioButton">
+        <property name="text">
+         <string>显示暂存</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <spacer name="verticalSpacer">
         <property name="orientation">
          <enum>Qt::Vertical</enum>
@@ -93,6 +100,13 @@
       </item>
       <item>
        <widget class="QLineEdit" name="m_pLESaveNAME"/>
+      </item>
+      <item>
+       <widget class="QPushButton" name="m_pBtnConfig">
+        <property name="text">
+         <string>设置及小功能</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>

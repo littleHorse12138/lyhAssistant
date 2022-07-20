@@ -21,6 +21,13 @@ void MainWindow::init()
 {
     connectSignalAndSlots();
     setWindowIcon(QIcon(":/logo.ico"));
+
+//    m_trayIcon = new QSystemTrayIcon(this);
+//    m_trayIcon->setIcon(QIcon(":/resc/title/icon.jpg"));
+//    m_trayIcon->setToolTip("a trayicon example");
+//    m_trayIcon->show();
+//    m_trayIcon->showMessage("titlec,text", "2",QSystemTrayIcon::Information,5000);
+    OtherFunctions::sendMessageToWindows("....");
 }
 
 void MainWindow::connectSignalAndSlots()
@@ -30,6 +37,7 @@ void MainWindow::connectSignalAndSlots()
     connect(m_pBtnOpenSudoku, &QPushButton::clicked, this, &MainWindow::onBtnPlaySudoku);
     connect(m_pBtnQSSHelper, &QPushButton::clicked, this, &MainWindow::onBtnQSSHelperOpen);
     connect(m_pBtnAddSave, &QPushButton::clicked, this, &MainWindow::onBtnSavePressed);
+    connect(m_pBtnFuncs, &QPushButton::clicked, this, &MainWindow::onBtnMainFuncPressed);
 }
 
 void MainWindow::checkComputerConfiguration()
@@ -78,6 +86,6 @@ void MainWindow::onBtnMainFuncPressed()
     if(!m_pMainFuncWgt){
         m_pMainFuncWgt = new MainFuncWgt;
     }
-    m_pMainFuncWgt>show();
+    m_pMainFuncWgt->show();
 }
 

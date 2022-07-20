@@ -1,4 +1,4 @@
-#ifndef MAINSAVEWGT_H
+﻿#ifndef MAINSAVEWGT_H
 #define MAINSAVEWGT_H
 
 #include <QDebug>
@@ -45,6 +45,7 @@ protected slots:
     void slotOnBtnExportPressed();
     void slotOnBtnImportPressed();
     void slotOnSaveTimeout();
+    void slotOnOpenConfigWgt();
     void updateWgt();
 private:
     ItemWgt *m_itemWgt = nullptr;

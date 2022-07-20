@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 #include <QMainWindow>
+#include <QSystemTrayIcon>
 #include "ui_mainwindow.h"
 #include "ReadLocalConfiguration/readlocalconfigurationwgt.h"
 #include "BeautifyMouse/beautifymousewgt.h"
@@ -32,5 +33,6 @@ private:
     MainQssWidget *m_pQSSWidget                 = nullptr;
     MainSaveWgt *m_pMainSaveWgt                 = nullptr;
     MainFuncWgt *m_pMainFuncWgt                 = nullptr;
+    QSystemTrayIcon* m_trayIcon                 = nullptr;
 };
 #endif // MAINWINDOW_H

@@ -14,13 +14,14 @@ public:
     OtherFunctions();
     static OtherFunctions* getInstance();
     static void giveInfoMessage(QString info, QString title = "lyhAssistant");
+    static void giveWarningMessage(QString info, QString title = "lyhAssistant");
     static bool giveQuestionMessage(QString text, QString title = "lyhAssistant");
     static int getNowTimeMesc();             //获取现在的时间以毫秒为单位
     static QDate getCurrentDay();   //获取当前日期
     static void openWeb(QString webPath);//打开网站
-    static void sendMessageToWindows(QString text, QString title = "lyhAssistant");//向windows消息栏发送通知
+    static void sendMessageToWindows(QString text, QString title = "lyhAssistant", int showTime = 2000);//向windows消息栏发送通知
 private:
-    QSystemTrayIcon m_sti;
+    QSystemTrayIcon* m_sti = new QSystemTrayIcon;
 };
 
 #endif // OTHERFUNCTIONS_H

@@ -19,6 +19,11 @@ void OtherFunctions::giveInfoMessage(QString info, QString title)
     QMessageBox::information(nullptr, title, info);
 }
 
+void OtherFunctions::giveWarningMessage(QString info, QString title)
+{
+    QMessageBox::warning(nullptr, title, info);
+}
+
 bool OtherFunctions::giveQuestionMessage(QString text, QString title)
 {
     return QMessageBox::question(nullptr, title, text) == QMessageBox::Yes ? true : false;
@@ -39,10 +44,9 @@ void OtherFunctions::openWeb(QString webPath)
     QDesktopServices::openUrl(QUrl(webPath, QUrl::TolerantMode));
 }
 
-void OtherFunctions::sendMessageToWindows(QString text, QString title)
+void OtherFunctions::sendMessageToWindows(QString text, QString title, int showTime)
 {
-    OtherFunctions::getInstance()->m_sti.showMessage(title, text);
-    OtherFunctions::getInstance()->m_sti.setIcon(QIcon("D:\23.webp"));
-    OtherFunctions::getInstance()->m_sti.setVisible(true);
-    qDebug() << ".." << OtherFunctions::getInstance()->m_sti.isVisible() << OtherFunctions::getInstance()->m_sti.geometry() << OtherFunctions::getInstance()->m_sti.isSystemTrayAvailable();
+    OtherFunctions::getInstance()->m_sti->setIcon(QIcon(":/resc/title/icon.jpg"));
+    OtherFunctions::getInstance()->m_sti->show();
+    OtherFunctions::getInstance()->m_sti->showMessage(title, text,QSystemTrayIcon::Information, showTime);
 }
