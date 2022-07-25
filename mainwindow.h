@@ -1,4 +1,4 @@
-#ifndef MAINWINDOW_H
+﻿#ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 #include <QMainWindow>
 #include <QSystemTrayIcon>
@@ -19,6 +19,8 @@ public:
 protected:
     void init();
     void connectSignalAndSlots();
+
+    void closeEvent(QCloseEvent *event);
 protected slots:
     void checkComputerConfiguration();
     void onBtnBeautifualMousePressed();

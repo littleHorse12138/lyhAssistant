@@ -14,7 +14,6 @@ MainSaveWgt::~MainSaveWgt()
 
 void MainSaveWgt::init()
 {
-    OtherFunctions::sendMessageToWindows("wolele");
     m_pTabWgt->setColumnCount(4);
     m_pTabWgt->setRowCount(100);
     m_pCBFinished->setChecked(true);
@@ -35,16 +34,16 @@ void MainSaveWgt::init()
 
 void MainSaveWgt::connectSignalAndSlots()
 {
-    connect(m_pBtnAddItem, &QPushButton::clicked , this, &MainSaveWgt::slotOnBtnAddItemPressed);
-    connect(m_pBtnSaveAll, &QPushButton::clicked , this, &MainSaveWgt::slotOnBtnSaveAllPressed);
-    connect(m_pBtnExport, &QPushButton::clicked , this, &MainSaveWgt::slotOnBtnExportPressed);
-    connect(m_pBtnImport, &QPushButton::clicked , this, CslotOnBtnImportPressed);
-    connect(m_itemWgt    , &ItemWgt::sgAddNewItem, this, &MainSaveWgt::slotOnAddNewItem);
-    connect(m_itemWgt    , &ItemWgt::sgDeleteItem, this, &MainSaveWgt::slotOnDeleteItem);
+    connect(m_pBtnAddItem, &QPushButton::clicked    , this, &MainSaveWgt::slotOnBtnAddItemPressed);
+    connect(m_pBtnSaveAll, &QPushButton::clicked    , this, &MainSaveWgt::slotOnBtnSaveAllPressed);
+    connect(m_pBtnExport , &QPushButton::clicked    , this, &MainSaveWgt::slotOnBtnExportPressed);
+    connect(m_pBtnImport , &QPushButton::clicked    , this, &MainSaveWgt::slotOnBtnImportPressed);
+    connect(m_itemWgt    , &ItemWgt::sgAddNewItem   , this, &MainSaveWgt::slotOnAddNewItem);
+    connect(m_itemWgt    , &ItemWgt::sgDeleteItem   , this, &MainSaveWgt::slotOnDeleteItem);
 
-    connect(m_pCBFinished   , &QCheckBox::clicked, this, &MainSaveWgt::updateWgt);
-    connect(m_pCBUnfinished , &QCheckBox::clicked, this, &MainSaveWgt::updateWgt);
-    connect(m_pBtnConfig,     &Q)
+    connect(m_pCBFinished   , &QCheckBox::clicked   , this, &MainSaveWgt::updateWgt);
+    connect(m_pCBUnfinished , &QCheckBox::clicked   , this, &MainSaveWgt::updateWgt);
+    connect(m_pBtnConfig    , &QPushButton::clicked , this, &MainSaveWgt::slotOnBtnExportPressed);
 }
 
 void MainSaveWgt::openItemWidget(QVariantMap data)
@@ -138,7 +137,11 @@ void MainSaveWgt::readDefaultData()
 void MainSaveWgt::closeEvent(QCloseEvent *event)
 {
     slotOnSaveTimeout();
-    OtherFunctions::sendMessageToWindows("closed!");
+}
+
+void MainSaveWgt::hideEvent(QHideEvent *event)
+{
+
 }
 
 bool MainSaveWgt::cmp(QVariantMap a, QVariantMap b)

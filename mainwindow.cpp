@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+﻿#include "mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -21,13 +21,10 @@ void MainWindow::init()
 {
     connectSignalAndSlots();
     setWindowIcon(QIcon(":/logo.ico"));
-
-//    m_trayIcon = new QSystemTrayIcon(this);
-//    m_trayIcon->setIcon(QIcon(":/resc/title/icon.jpg"));
-//    m_trayIcon->setToolTip("a trayicon example");
-//    m_trayIcon->show();
-//    m_trayIcon->showMessage("titlec,text", "2",QSystemTrayIcon::Information,5000);
-    OtherFunctions::sendMessageToWindows("....");
+    m_trayIcon = new QSystemTrayIcon(this);
+    m_trayIcon->setIcon(QIcon(":/logo.ico"));
+    //trayIcon->setToolTip(QStringLiteral("测试"));
+    m_trayIcon->show();
 }
 
 void MainWindow::connectSignalAndSlots()
@@ -38,6 +35,15 @@ void MainWindow::connectSignalAndSlots()
     connect(m_pBtnQSSHelper, &QPushButton::clicked, this, &MainWindow::onBtnQSSHelperOpen);
     connect(m_pBtnAddSave, &QPushButton::clicked, this, &MainWindow::onBtnSavePressed);
     connect(m_pBtnFuncs, &QPushButton::clicked, this, &MainWindow::onBtnMainFuncPressed);
+}
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    if(m_trayIcon->isVisible())
+    {
+        hide(); //隐藏窗口
+      //  event->ignore(); //忽略事件
+    }
 }
 
 void MainWindow::checkComputerConfiguration()

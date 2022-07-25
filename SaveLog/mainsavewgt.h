@@ -33,7 +33,7 @@ protected:
     bool saveData(QVariantMap data, QString path, bool isAuto = false);
     QVariantMap readData(QString filePath);
     void closeEvent(QCloseEvent *event);
-
+    void hideEvent(QHideEvent *event);
     static bool cmp(QVariantMap a, QVariantMap b);
     void sortItems();
 protected slots:
