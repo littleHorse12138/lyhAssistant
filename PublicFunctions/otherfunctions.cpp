@@ -1,8 +1,9 @@
-#include "otherfunctions.h"
+﻿#include "otherfunctions.h"
 
 OtherFunctions::OtherFunctions()
 {
-
+    OtherFunctions::getInstance()->m_sti->setIcon(QIcon(":/resc/title/icon.jpg"));
+    OtherFunctions::getInstance()->m_sti->show();
 }
 
 OtherFunctions* OtherFunctions::getInstance()
@@ -39,6 +40,11 @@ QDate OtherFunctions::getCurrentDay()
     return QDateTime::currentDateTime().date();
 }
 
+QTime OtherFunctions::getCurrenTime()
+{
+    return QTime::currentTime();
+}
+
 void OtherFunctions::openWeb(QString webPath)
 {
     QDesktopServices::openUrl(QUrl(webPath, QUrl::TolerantMode));
@@ -46,7 +52,5 @@ void OtherFunctions::openWeb(QString webPath)
 
 void OtherFunctions::sendMessageToWindows(QString text, QString title, int showTime)
 {
-    OtherFunctions::getInstance()->m_sti->setIcon(QIcon(":/resc/title/icon.jpg"));
-    OtherFunctions::getInstance()->m_sti->show();
     OtherFunctions::getInstance()->m_sti->showMessage(title, text,QSystemTrayIcon::Information, showTime);
 }
