@@ -35,6 +35,7 @@ void MainWindow::connectSignalAndSlots()
     connect(m_pBtnQSSHelper, &QPushButton::clicked, this, &MainWindow::onBtnQSSHelperOpen);
     connect(m_pBtnAddSave, &QPushButton::clicked, this, &MainWindow::onBtnSavePressed);
     connect(m_pBtnFuncs, &QPushButton::clicked, this, &MainWindow::onBtnMainFuncPressed);
+    connect(m_pBtn3DEngine, &QPushButton::clicked, this, &MainWindow::onBtn3DEnginePressed);
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
@@ -93,5 +94,13 @@ void MainWindow::onBtnMainFuncPressed()
         m_pMainFuncWgt = new MainFuncWgt;
     }
     m_pMainFuncWgt->show();
+}
+
+void MainWindow::onBtn3DEnginePressed()
+{
+    if(!m_p3DEngineWgt){
+        m_p3DEngineWgt = new Main3DEngineWidget;
+    }
+    m_p3DEngineWgt->show();
 }
 

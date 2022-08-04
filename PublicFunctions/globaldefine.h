@@ -1,4 +1,4 @@
-#ifndef GLOBALDEFINE_H
+﻿#ifndef GLOBALDEFINE_H
 #define GLOBALDEFINE_H
 
 class GlobalDefine
@@ -8,6 +8,10 @@ public:
     enum SAVE_LOG{
         MAIN,
         ITEM
+    };
+
+    enum SHADER_MODE{
+        DEFAULT
     };
 };
 

@@ -3,5 +3,7 @@
         <file>resc/BeautifyMouse/mouse1.png</file>
         <file>resc/title/icon.jpg</file>
         <file>logo.ico</file>
+        <file>resc/Opengl/glsl/default.frag</file>
+        <file>resc/Opengl/glsl/default.vert</file>
     </qresource>
 </RCC>

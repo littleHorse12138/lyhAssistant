@@ -67,7 +67,7 @@ void LyhCountDown::connectSignalAndSlots()
 
 void LyhCountDown::updateLCDNumber()
 {
-    m_pLCDTimer->SET
+//    m_pLCDTimer->SET
 }
 
 void LyhCountDown::slotOnBtnExitPressed()
@@ -94,5 +94,5 @@ void LyhCountDown::slotOnBtnSuspendedPressed()
 
 void LyhCountDown::slotOnTimerTimeOut()
 {
-    m_
+  //  m_
 }

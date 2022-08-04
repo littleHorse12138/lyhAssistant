@@ -24,6 +24,9 @@ include($$PWD/osg/osg.pri)
 include($$PWD/SaveLog/SaveLog.pri)
 include($$PWD/LittleGame/LittleGame.pri)
 include($$PWD/UsefulFunction/UsefulFunction.pri)
+include($$PWD/3DEngine/3DEngine.pri)
+LIBS += User32.LIB
+
 SOURCES += \
     main.cpp \
     mainwindow.cpp

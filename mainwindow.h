@@ -9,6 +9,7 @@
 #include "QSSHelper/mainqsswidget.h"
 #include "SaveLog/mainsavewgt.h"
 #include "UsefulFunction/mainfuncwgt.h"
+#include "3DEngine/main3denginewidget.h"
 class MainWindow : public QMainWindow, public Ui_MainWindow
 {
     Q_OBJECT
@@ -28,6 +29,7 @@ protected slots:
     void onBtnQSSHelperOpen();
     void onBtnSavePressed();
     void onBtnMainFuncPressed();
+    void onBtn3DEnginePressed();
 private:
     ReadLocalConfigurationWgt* m_pReadConfigWgt = nullptr;
     BeautifyMouseWgt *m_pBeautifyMouseWgt       = nullptr;
@@ -36,5 +38,6 @@ private:
     MainSaveWgt *m_pMainSaveWgt                 = nullptr;
     MainFuncWgt *m_pMainFuncWgt                 = nullptr;
     QSystemTrayIcon* m_trayIcon                 = nullptr;
+    Main3DEngineWidget *m_p3DEngineWgt          = nullptr;
 };
 #endif // MAINWINDOW_H
