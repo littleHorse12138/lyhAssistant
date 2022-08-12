@@ -12,11 +12,25 @@ Main3DEngineWidget::~Main3DEngineWidget()
 
 }
 
+void Main3DEngineWidget::onCBFPSChanged(bool flag)
+{
+    if(flag){
+        m_pLabFPS->show();
+    }else{
+        m_pLabFPS->hide();
+    }
+}
+
 void Main3DEngineWidget::init()
 {
     m_pBtnExit    ->setFocusPolicy(Qt::NoFocus);
     m_pBtnConfig  ->setFocusPolicy(Qt::NoFocus);
     m_pBtnAddModel->setFocusPolicy(Qt::NoFocus);
+    if(!m_pLabFPS){
+        m_pLabFPS = new QLabel(this);
+        m_pLabFPS->show();
+        m_pLabFPS->setText("0");
+    }
     connectSignalAndSlots();
 }
 
@@ -56,6 +70,11 @@ void Main3DEngineWidget::wheelEvent(QWheelEvent *event)
     }
 }
 
+void Main3DEngineWidget::resizeEvent(QResizeEvent *event)
+{
+    m_pLabFPS->move(0, 0);
+}
+
 void Main3DEngineWidget::slotOnBtnConfigPressed()
 {
     OpenglConfigWgt::getInstance()->show();
@@ -73,4 +92,5 @@ void Main3DEngineWidget::slotOnBtnExitPressed()
 {
     this->close();
 }
+
 

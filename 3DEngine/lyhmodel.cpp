@@ -33,6 +33,7 @@ void LyhModel::calNormals()
 void LyhModel::generateData()
 {
     m_data.clear();
+    calNormals();
     for(int i = 0; i < m_indices.count(); i++){
         QVector3D point,normal,color;
         point  = getPoint (m_indices[i]);
@@ -72,6 +73,11 @@ bool LyhModel::getIsShow()
     return m_bIsShow;
 }
 
+bool LyhModel::getIsLight()
+{
+    return m_bIsLight;
+}
+
 int LyhModel::getPointCount()
 {
     return m_points.count();
@@ -95,6 +101,26 @@ QMatrix4x4 LyhModel::getModelMat()
 QVector<float> LyhModel::getModelData()
 {
     return m_data;
+}
+
+QVector3D LyhModel::getMaterialAmbient()
+{
+    return m_materialAmbient;
+}
+
+QVector3D LyhModel::getMaterialDiffuse()
+{
+    return m_materialDiffuse;
+}
+
+QVector3D LyhModel::getMaterialSpecluar()
+{
+    return m_materialSpecluar;
+}
+
+float LyhModel::getMaterialShininess()
+{
+    return m_materialShininess;
 }
 
 QVector3D LyhModel::getPoint(int index)

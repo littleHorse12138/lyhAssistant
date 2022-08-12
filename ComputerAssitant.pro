@@ -32,6 +32,7 @@ SOURCES += \
     mainwindow.cpp
 
 HEADERS += \
+    ccrashstack.h \
     mainwindow.h
 
 FORMS += \

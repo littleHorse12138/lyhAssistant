@@ -1,4 +1,5 @@
 HEADERS += \
+    $$PWD/errormanager.h \
     $$PWD/filefunctions.h \
     $$PWD/globaldefine.h \
     $$PWD/mathfuction.h \
@@ -8,6 +9,7 @@ HEADERS += \
 
 
 SOURCES += \
+    $$PWD/errormanager.cpp \
     $$PWD/filefunctions.cpp \
     $$PWD/globaldefine.cpp \
     $$PWD/mathfuction.cpp \

@@ -32,6 +32,11 @@ QColor OpenglConfigWgt::getBackGroundColor()
     return QColor(r, g, b);
 }
 
+bool OpenglConfigWgt::getIsUseLight()
+{
+    return m_bIsUseLight;
+}
+
 void OpenglConfigWgt::init()
 {
     connectSignalAndSlots();

@@ -2,6 +2,8 @@ HEADERS += \
     $$PWD/addmodelwidget.h \
     $$PWD/camera.h \
     $$PWD/cameramanager.h \
+    $$PWD/light.h \
+    $$PWD/lightmanager.h \
     $$PWD/lyhmodel.h \
     $$PWD/main3denginewidget.h \
     $$PWD/modelmanager.h \
@@ -12,6 +14,8 @@ SOURCES += \
     $$PWD/addmodelwidget.cpp \
     $$PWD/camera.cpp \
     $$PWD/cameramanager.cpp \
+    $$PWD/light.cpp \
+    $$PWD/lightmanager.cpp \
     $$PWD/lyhmodel.cpp \
     $$PWD/main3denginewidget.cpp \
     $$PWD/modelmanager.cpp \

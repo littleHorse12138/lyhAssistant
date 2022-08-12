@@ -16,11 +16,13 @@ public:
     ~OpenglConfigWgt();
     static OpenglConfigWgt* getInstance();
     QColor getBackGroundColor();
+
+    bool getIsUseLight();
 protected:
     void init();
     void connectSignalAndSlots();
 private:
-
+    bool m_bIsUseLight = false;
 };
 
 #endif // OPENGLCONFIGWGT_H

@@ -31,6 +31,9 @@ protected:
     void connectSignalAndSlots();
 
     void renderModels();
+    void setUniform();
+    void setModelUniform(LyhModel* model);
+    void setLight();
 protected slots:
     void slotOnFlashTimerTimeout();
 private:
@@ -39,6 +42,8 @@ private:
     QOpenGLBuffer m_vbo;
 
     QTimer *m_pFlashTimer = nullptr;
+
+    bool m_bIsLight = false;
 signals:
 
 };

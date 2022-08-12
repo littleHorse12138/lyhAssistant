@@ -36,7 +36,7 @@ void OpenglWgt::paintGL()
 
     m_shaderProgram.bind();
     QOpenGLVertexArrayObject::Binder vaoBind(&m_vao);
-    m_shaderProgram.setUniformValue("view", CameraManager::getInstance()->getCurCamera()->getViewMat());
+    setUniform();
 
     int l = ModelManager::getInstance()->getModelCount();
     int pointsCnt = 0;
@@ -45,8 +45,7 @@ void OpenglWgt::paintGL()
         if(!model->getIsShow()){
             continue;
         }
-        QMatrix4x4 modelMat = model->getModelMat();
-        m_shaderProgram.setUniformValue("model", modelMat);
+        setModelUniform(model);
         glDrawArrays(model->getModelType(), pointsCnt, model->getIndicesCount());
         pointsCnt += model->getIndicesCount();
     }
@@ -62,10 +61,10 @@ void OpenglWgt::init()
 
 void OpenglWgt::connectShader(GlobalDefine::SHADER_MODE model)
 {
-    if(!m_shaderProgram.addShaderFromSourceFile(QOpenGLShader::Vertex, ":/resc/Opengl/glsl/default.vert")){
+    if(!m_shaderProgram.addShaderFromSourceFile(QOpenGLShader::Vertex , ":/resc/Opengl/glsl/default.vert")){
         OtherFunctions::giveWarningMessage(QStringLiteral("添加vert着色器失败"));
     }
-    if(!m_shaderProgram.addCacheableShaderFromSourceFile(QOpenGLShader::Fragment, ":/resc/Opengl/glsl/default.frag")){
+    if(!m_shaderProgram.addShaderFromSourceFile(QOpenGLShader::Fragment, ":/resc/Opengl/glsl/default.frag")){
         OtherFunctions::giveWarningMessage(QStringLiteral("添加frag着色器失败"));
     }
 }
@@ -89,15 +88,38 @@ void OpenglWgt::renderModels()
     m_shaderProgram.setAttributeBuffer(attr, GL_FLOAT, 0, 3, sizeof(GLfloat) * 11);
     m_shaderProgram.enableAttributeArray(attr);
 
-//    if(m_bIfLight){
-//        attr = m_shaderProgram.attributeLocation("aNormal");
-//        m_shaderProgram.setAttributeBuffer(attr, GL_FLOAT, sizeof(GLfloat) * 3, 3, sizeof(GLfloat) * 9);
-//        m_shaderProgram.enableAttributeArray(attr);
-//    }
+    if(m_bIsLight){
+        attr = m_shaderProgram.attributeLocation("aNormal");
+        m_shaderProgram.setAttributeBuffer(attr, GL_FLOAT, sizeof(GLfloat) * 3, 3, sizeof(GLfloat) * 11);
+        m_shaderProgram.enableAttributeArray(attr);
+    }
 
     attr = m_shaderProgram.attributeLocation("aFragColor");
     m_shaderProgram.setAttributeBuffer(attr, GL_FLOAT, sizeof(GLfloat) * 6, 3, sizeof(GLfloat) * 11);
     m_shaderProgram.enableAttributeArray(attr);
+}
+
+void OpenglWgt::setUniform()
+{
+    m_shaderProgram.setUniformValue("view", CameraManager::getInstance()->getCurCamera()->getViewMat());
+}
+
+void OpenglWgt::setModelUniform(LyhModel *model)
+{
+    QMatrix4x4 modelMat = model->getModelMat();
+    m_shaderProgram.setUniformValue("model", modelMat);
+    m_shaderProgram.setUniformValue("isUseLight", model->getIsLight());
+    if(OpenglConfigWgt::getInstance()->getIsUseLight()){
+        m_shaderProgram.setUniformValue("materialAmbient  ", model->getMaterialAmbient());
+        m_shaderProgram.setUniformValue("materialDiffuse  ", model->getMaterialDiffuse());
+        m_shaderProgram.setUniformValue("materialSpecluar ", model->getMaterialSpecluar());
+        m_shaderProgram.setUniformValue("materialShininess", model->getMaterialShininess());
+    }
+}
+
+void OpenglWgt::setLight()
+{
+
 }
 
 
