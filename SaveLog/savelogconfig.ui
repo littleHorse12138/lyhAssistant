@@ -32,7 +32,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QComboBox" name="comboBox"/>
+       <widget class="QComboBox" name="m_pCBSortOrder"/>
       </item>
       <item>
        <spacer name="verticalSpacer">

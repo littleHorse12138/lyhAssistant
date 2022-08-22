@@ -15,6 +15,7 @@
 #include "cameramanager.h"
 #include "openglconfigwgt.h"
 #include "modelmanager.h"
+#include "lightmanager.h"
 class OpenglWgt: public QOpenGLWidget, public QOpenGLFunctions_4_3_Compatibility
 {
     Q_OBJECT

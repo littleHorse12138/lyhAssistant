@@ -108,7 +108,11 @@ void OpenglWgt::setModelUniform(LyhModel *model)
 {
     QMatrix4x4 modelMat = model->getModelMat();
     m_shaderProgram.setUniformValue("model", modelMat);
-    m_shaderProgram.setUniformValue("isUseLight", model->getIsLight());
+    if(LightManager::getInstance()->getIsUseLight()){
+        m_shaderProgram.setUniformValue("isUseLight", model->getIsLight());
+    }else{
+        m_shaderProgram.setUniformValue("isUseLight", false);
+    }
     if(OpenglConfigWgt::getInstance()->getIsUseLight()){
         m_shaderProgram.setUniformValue("materialAmbient  ", model->getMaterialAmbient());
         m_shaderProgram.setUniformValue("materialDiffuse  ", model->getMaterialDiffuse());
